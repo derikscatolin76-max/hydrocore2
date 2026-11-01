@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="utf-8"><title>HYDROCORE</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#080A0F;--card:#151923;--tx:#FFFFFF;--mu:#8B93A7;--bl:#1677FF;--cy:#42C8FF;--rd:#FF3B4D;--ln:rgba(66,200,255,.18);--wh:#FFFFFF;--on:#080A0F;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+:root[data-theme=light]{--bg:#F3F6FB;--card:#FFFFFF;--tx:#080A0F;--mu:#5B6378;--ln:rgba(22,119,255,.22);--on:#FFFFFF}
+*{box-sizing:border-box}html,body{margin:0}
+body{background:var(--bg);color:var(--tx);font:400 15px/1.45 Sora,system-ui,sans-serif;background-image:linear-gradient(var(--ln) 1px,transparent 1px),linear-gradient(90deg,var(--ln) 1px,transparent 1px);background-size:32px 32px;background-attachment:fixed}
+body::after{content:"";position:fixed;inset:0;background:radial-gradient(circle at 50% -10%,rgba(22,119,255,.22),transparent 60%),var(--bg);opacity:.9;z-index:-1}
+#app{max-width:560px;margin:0 auto;padding:14px 14px 150px}
+h1,h2,h3{margin:0;font-weight:700}h2{font-size:17px;margin:18px 0 8px}
+.card{background:color-mix(in srgb,var(--card) 88%,transparent);border:1px solid var(--ln);border-radius:18px;padding:16px;margin-bottom:12px;backdrop-filter:blur(8px)}
+.mu{color:var(--mu);font-size:13px}.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.sp{justify-content:space-between}
+button,select,input,textarea{font:inherit;color:var(--tx)}
+button{cursor:pointer;min-height:44px;border-radius:12px;border:1px solid var(--ln);background:transparent;padding:8px 14px}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--cy);outline-offset:2px}
+.pr{background:var(--bl);border-color:var(--bl);color:#fff;font-weight:600}.dg{color:var(--rd);border-color:var(--rd)}
+input,select,textarea{width:100%;background:transparent;border:1px solid var(--ln);border-radius:10px;padding:10px;min-height:44px}
+select option{color:#080A0F}label{display:block;margin:10px 0 4px;font-size:13px;color:var(--mu)}
+.ring{position:relative;width:230px;height:230px;margin:6px auto}.ring svg{position:absolute;inset:0;transform:rotate(-90deg);filter:drop-shadow(0 0 6px rgba(66,200,255,.6))}
+.liq{position:absolute;inset:16px;border-radius:50%;overflow:hidden}.liq b{position:absolute;left:0;right:0;bottom:0;background:linear-gradient(rgba(66,200,255,.28),rgba(22,119,255,.35));transition:height .8s}
+.liq i{position:absolute;left:-25%;width:150%;height:150%;top:-45%;border-radius:42%;background:rgba(66,200,255,.22);animation:sp 8s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.ctr{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}.ctr big{font-size:30px;font-weight:700}
+.qa{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.qa button{border-color:var(--bl);font-weight:600}
+nav{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--ln);display:flex;justify-content:center;padding-bottom:env(safe-area-inset-bottom,0px);z-index:5}
+nav div{display:flex;width:100%;max-width:560px}nav button{flex:1;border:0;border-radius:0;font-size:11px;color:var(--mu);display:flex;flex-direction:column;gap:2px;align-items:center;min-height:56px}nav button.on{color:var(--cy)}nav span{font-size:18px}
+.fab{position:fixed;right:16px;bottom:calc(72px + env(safe-area-inset-bottom,0px));z-index:6;box-shadow:0 0 18px rgba(22,119,255,.6);border-radius:30px;padding:10px 18px}
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:10;display:flex;align-items:flex-end;justify-content:center}
+.sh{background:var(--card);width:100%;max-width:560px;max-height:90%;overflow:auto;border-radius:22px 22px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom,0px));border:1px solid var(--ln);animation:up .25s}
+@keyframes up{from{transform:translateY(40px);opacity:0}}
+.ch{display:inline-block;margin:0 6px 6px 0;min-height:38px;padding:6px 12px;font-size:13px}.ch.on{background:var(--bl);border-color:var(--bl);color:#fff}
+.tl div{display:flex;justify-content:space-between;gap:8px;padding:9px 0;border-bottom:1px solid var(--ln)}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}.cal small{text-align:center;color:var(--mu);font-size:11px}
+.cal button{aspect-ratio:1;min-height:0;padding:0;font-size:13px;position:relative;border-radius:10px;background:#fff;color:#080A0F;border:1px solid #8B93A7}
+.cal .ok{background:var(--bl);color:#fff;border-color:var(--bl)}.cal .miss{background:var(--rd);color:#fff;border-color:var(--rd)}.cal .td{outline:2px solid var(--cy);outline-offset:1px}
+.cal .em{position:absolute;right:3px;bottom:0;font-size:9px}.cal .fu{opacity:.35}
+.lg span{display:inline-flex;gap:6px;align-items:center;margin-right:12px;font-size:12px}.lg i{width:14px;height:14px;border-radius:4px;border:1px solid #8B93A7;display:inline-block}
+.bar{height:8px;border-radius:4px;background:var(--ln);overflow:hidden}.bar b{display:block;height:100%;background:var(--bl)}
+#toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(130px + env(safe-area-inset-bottom,0px));background:var(--bl);color:#fff;padding:10px 16px;border-radius:12px;z-index:20;display:none;gap:12px;align-items:center}
+#toast button{min-height:30px;padding:2px 10px;color:#fff;border-color:#fff}
+.sc{overflow-x:auto}.emp{text-align:center;color:var(--mu);padding:18px 8px}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+:root[data-rm=on] *{animation:none!important;transition:none!important}
+</style></head><body>
+<div id="app"></div>
+<button class="pr fab" onclick="ent()" aria-label="Registrar água">＋ Registrar água</button>
+<nav><div id="nav"></div></nav><div id="toast" role="status"></div><div id="ovl"></div>
+<script>
+"use strict";
+const K='hydrocore.v1',p2=n=>String(n).padStart(2,'0');
+let S={cfg:{goal:2500,quick:[150,250,350,500],wake:'07:00',sleep:'23:00',every:60,tone:0,notif:false,stop:true,theme:'dark',reflect:true,ctx:'Em casa',on:false,rm:false},e:[],r:{},snap:{},n:{}};
+try{const x=JSON.parse(localStorage.getItem(K));if(x)S={...S,...x,cfg:{...S.cfg,...x.cfg}}}catch(_){}
+const save=()=>{try{localStorage.setItem(K,JSON.stringify(S))}catch(_){toast('Não foi possível salvar neste navegador.')}clearTimeout(sT);sT=setTimeout(sched,400)};
+const ymd=d=>d.getFullYear()+'-'+p2(d.getMonth()+1)+'-'+p2(d.getDate()),today=()=>ymd(new Date());
+const fm=n=>Math.round(n).toLocaleString('pt-BR')+' ml',hm=ts=>new Date(ts).toTimeString().slice(0,5);
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const pd=s=>{const[a,b,c]=s.split('-');return new Date(+a,b-1,+c)},fd=s=>pd(s).toLocaleDateString('pt-BR',{weekday:'short',day:'2-digit',month:'short',year:'numeric'});
+const CT=['Em casa','Escola','Academia','Trabalho','Rua','Outro'];
+const MSG=[["HYDROCORE | Hora de se hidratar. Registre seu próximo copo de água.","Uma pausa rápida para beber água?","Como está sua meta hoje? Registre sua hidratação."],["Que tal um golinho agora? Seu copo está com saudade.","Água não se bebe sozinha. Bora?","Bateu a sede? Ou vai esperar o cansaço chegar?"],["Ô criatura, já bebeu água hoje ou tá esperando um milagre?","Seu corpo não é movido a Wi-Fi. Bora beber água!","Levanta essa moral e vai tomar uma água. Seu progresso não vai se atualizar sozinho."]];
+const MID=["Ainda sem registros hoje. Que tal começar agora?","Meio-dia e nenhum registro? Bora quebrar o jejum de água.","12h e nenhum registro? O copo tá decorando a casa?"];
+const TN=['Normal (educado)','Divertido','Modo Sem Paciência','Modo Bravo (palavrões)'];
+const pick=a=>a[Math.floor(Math.random()*a.length)],midMsg=t=>Array.isArray(MID[t])?pick(MID[t]):MID[t];
+MSG.push(["Vai beber água, não porra!","Vai tomar no cu, seu merda, e bebe logo essa água.","Caralho, você ainda não bebeu água? Larga o celular e vai beber.","Porra, é só levantar e encher um copo. Não é cirurgia, caralho.","Bebe água, seu filho da puta teimoso. Seu rim não é de ferro.","Que merda é essa? Nem água você lembra de beber. Vai e registra aí.","Foda-se a preguiça. Levanta e bebe água agora.","Puta que pariu, bebe água! Eu não vou pedir de novo. (Vou, daqui a pouco.)","Porra, caralho, água! Bebe. Agora. Depois registra aqui.","Você vai desidratar igual planta esquecida, desgraça. Vai beber água, merda.","Pelo amor de Deus, bebe essa porra de água e para de me fazer insistir.","Tá de sacanagem que ainda não bebeu água? Vai logo, caralho.","Se eu fosse o seu copo, já tinha me jogado da mesa. Bebe água, seu bosta."]);
+MID.push(["Meio-dia e ZERO água registrada, que porra é essa? Vai beber.","Já é meio-dia, seu merda, e nem um golinho. Bebe água agora.","Caralho, metade do dia foi embora sem uma gota. Vai beber água.","Nenhum registro até agora? Vai tomar uma água, porra, antes que eu perca a paciência."]);
+function setTone(v){if(v===3&&!confirm('O Modo Bravo envia palavrões de verdade nas notificações. Ativar?')){R();return}S.cfg.tone=v;save();R()}
+const tot=d=>S.e.filter(x=>x.d===d).reduce((a,x)=>a+x.ml,0),cnt=d=>S.e.filter(x=>x.d===d).length;
+const tgt=d=>d===today()?S.cfg.goal:(S.snap[d]||S.cfg.goal);
+function st(d){const n=cnt(d);if(n&&tot(d)>=tgt(d))return'ok';if(d===today())return'now';if(d<today()&&n)return'miss';return'none'}
+function freeze(){const t=today();S.e.forEach(x=>{if(x.d<t&&!S.snap[x.d])S.snap[x.d]=S.cfg.goal})}
+function streaks(){const ds=[...new Set(S.e.map(x=>x.d))].filter(d=>st(d)==='ok').sort();let best=0,run=0,prev=null;
+ds.forEach(d=>{run=prev&&Math.round((pd(d)-pd(prev))/864e5)===1?run+1:1;best=Math.max(best,run);prev=d});
+let c=0,d=new Date();if(st(ymd(d))!=='ok')d.setDate(d.getDate()-1);while(st(ymd(d))==='ok'&&c<5000){c++;d.setDate(d.getDate()-1)}return{c,best,n:ds.length}}
+let tab='home',cm=new Date();cm.setDate(1);
+const TABS=[['home','◉','Início'],['cal','▦','Calendário'],['stats','▥','Análises'],['hist','☰','Histórico'],['set','⚙','Ajustes']];
+function R(){freeze();document.documentElement.dataset.theme=S.cfg.theme;document.documentElement.dataset.rm=S.cfg.rm?'on':'off';
+$nav.innerHTML=TABS.map(t=>`<button class="${tab===t[0]?'on':''}" onclick="go('${t[0]}')" aria-label="${t[2]}"><span>${t[1]}</span>${t[2]}</button>`).join('');
+$app.innerHTML=({home,cal,stats,hist,set})[tab]();}
+const $app=document.getElementById('app'),$nav=document.getElementById('nav');
+const go=t=>{tab=t;R();scrollTo(0,0)};
+let tt;function toast(m,undo){const e=document.getElementById('toast');e.style.display='flex';e.innerHTML=esc(m)+(undo?`<button onclick="undo('${undo}')">Desfazer</button>`:'');clearTimeout(tt);tt=setTimeout(()=>e.style.display='none',4500)}
+function undo(id){S.e=S.e.filter(x=>x.id!==id);save();R();toast('Registro desfeito.')}
+function sheet(h){document.getElementById('ovl').innerHTML=`<div class="ov" onclick="if(event.target===this)closeS()"><div class="sh" role="dialog" aria-modal="true">${h}</div></div>`}
+const closeS=()=>{document.getElementById('ovl').innerHTML=''};
+const uid=()=>(crypto.randomUUID?crypto.randomUUID():Date.now()+'-'+Math.random().toString(16).slice(2));
+function add(ml,o={}){const ts=o.ts||Date.now(),d=ymd(new Date(ts));if(!(ml>=20&&ml<=3000))return toast('Informe uma quantidade entre 20 e 3.000 ml.');
+if(ts>Date.now()+6e4)return toast('O horário não pode estar no futuro.');
+const x={id:uid(),d,ts,ml:Math.round(ml),ctx:o.ctx||'',note:o.note||''};S.e.push(x);if(d<today()&&!S.snap[d])S.snap[d]=S.cfg.goal;save();R();return x}
+function quick(ml){const x=add(ml,{ctx:S.cfg.ctx});if(x){const t=tot(today()),g=S.cfg.goal;toast(t>=g&&t-ml<g?'Meta do dia atingida! Mais um dia de meta concluída.':'+'+ml+' ml registrados.',x.id)}}
+/* ---- HOME ---- */
+function home(){const d=today(),t=tot(d),g=S.cfg.goal,pc=Math.round(t/g*100),rem=Math.max(0,g-t),s=streaks(),es=S.e.filter(x=>x.d===d).sort((a,b)=>a.ts-b.ts),C=2*Math.PI*104;
+let last='';if(es.length){const m=Math.round((Date.now()-es[es.length-1].ts)/6e4);last=`Último registro há ${m>=60?Math.floor(m/60)+' h '+m%60+' min':m+' min'}.`}
+let run=0;const wk=[...Array(7)].map((_,i)=>{const x=new Date();x.setDate(x.getDate()-6+i);const k=ymd(x);run+=tot(k);return[k,x]});
+const pend=S.cfg.reflect&&!(S.r[d]&&S.r[d].done)&&es.length&&new Date().getHours()>=20;
+return `<div class="row sp"><b style="letter-spacing:2px;color:var(--cy)">HYDROCORE</b><div class="row"><span class="mu">🔥 ${s.c}</span><button onclick="go('set')" aria-label="Ajustes">⚙</button></div></div>
+<p class="mu" style="margin:14px 0 2px">${new Date().toLocaleDateString('pt-BR',{weekday:'long',day:'numeric',month:'long'}).toUpperCase()}</p><h1 style="font-size:20px">Vamos acompanhar sua hidratação hoje.</h1>
+${S.cfg.on?'':'<div class="card mu" style="margin-top:12px">Sua meta é pessoal e editável, não uma recomendação médica. <a href="#" onclick="onb();return false" style="color:var(--cy)">Ajustar agora</a></div>'}
+<div class="card" style="margin-top:12px"><div class="ring"><svg viewBox="0 0 230 230"><circle cx="115" cy="115" r="104" fill="none" stroke="var(--ln)" stroke-width="8"/><circle cx="115" cy="115" r="104" fill="none" stroke="${pc>=100?'var(--cy)':'var(--bl)'}" stroke-width="8" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C*(1-Math.min(pc,100)/100)}" style="transition:stroke-dashoffset .8s"/></svg>
+<div class="liq"><b style="height:${Math.min(pc,100)}%"><i></i></b></div><div class="ctr"><big>${t.toLocaleString('pt-BR')} ml</big><span class="mu">de ${g.toLocaleString('pt-BR')} ml</span><b style="color:var(--cy)">${pc}% da meta</b></div></div>
+<p style="text-align:center;margin:4px 0">${rem?`Faltam ${fm(rem)} para sua meta.`:'Meta atingida! Continue registrando se quiser.'}</p><p class="mu" style="text-align:center;margin:0">${es.length} registro(s) hoje. ${last}</p></div>
+<div class="qa">${S.cfg.quick.slice(0,5).map(q=>`<button onclick="quick(${q})">+${q} ml</button>`).join('')}<button class="pr" onclick="ent()">Personalizar</button></div>
+${pend?'<div class="card" style="margin-top:12px;border-color:var(--cy)">Como foi seu dia? <button class="pr" onclick="refl(today())" style="margin-left:8px">Reflexão do dia</button></div>':''}
+<div class="card" style="margin-top:12px"><div class="mu">OFENSIVA ATUAL</div><h1>${s.c} ${s.c===1?'dia':'dias'}</h1><div class="mu">${s.n?`Seu melhor resultado: ${s.best} dias. Dias de meta: ${s.n}.`:'Comece hoje a construir sua ofensiva.'}</div></div>
+<div class="card"><div class="row sp"><b>Esta semana</b><span class="mu">${fm(run)}</span></div><div class="row" style="gap:6px;margin-top:10px;align-items:flex-end;height:70px">${wk.map(([k,x])=>{const v=tot(k),h=Math.max(4,Math.min(100,v/tgt(k)*100)),s2=st(k);return `<div style="flex:1;text-align:center;font-size:10px" class="mu"><div style="height:${h*.5}px;border-radius:4px;background:${s2==='miss'?'var(--rd)':v?'var(--bl)':'var(--ln)'}"></div>${x.toLocaleDateString('pt-BR',{weekday:'narrow'})}</div>`}).join('')}</div></div>
+<h2>Linha do tempo de hoje</h2><div class="card tl">${es.length?es.map((x,i)=>`<div><span>${hm(x.ts)} — ${x.ml} ml${x.ctx?' — '+esc(x.ctx):''}<br><span class="mu">Acumulado: ${fm(es.slice(0,i+1).reduce((a,y)=>a+y.ml,0))}</span></span><button onclick="ent('${x.id}')" aria-label="Editar">✎</button></div>`).join(''):'<div class="emp">Nenhum copo registrado ainda. Adicione sua primeira água.</div>'}</div>`}
+/* ---- ENTRY SHEET ---- */
+function ent(id,dd){const x=id?S.e.find(y=>y.id===id):null,n=new Date(),dt=x?x.d:(dd||today());
+sheet(`<h3>${x?'Editar registro':'Registrar água'}</h3><label>Quantidade (ml)</label><input id="f-ml" type="number" inputmode="numeric" min="20" max="3000" value="${x?x.ml:250}">
+<div class="row"><div style="flex:1"><label>Data</label><input id="f-d" type="date" value="${dt}" max="${today()}"></div><div style="flex:1"><label>Horário</label><input id="f-t" type="time" value="${x?hm(x.ts):(dt===today()?hm(n):'12:00')}"></div></div>
+<label>Contexto (opcional)</label><select id="f-c"><option value="">Sem contexto</option>${CT.map(c=>`<option ${(x?x.ctx:S.cfg.ctx)===c?'selected':''}>${c}</option>`).join('')}</select>
+<label>Observação (opcional)</label><input id="f-n" maxlength="140" value="${esc(x?x.note:'')}"><p class="mu" id="f-e" style="color:var(--rd)"></p>
+<div class="row" style="margin-top:8px"><button class="pr" onclick="saveEnt('${id||''}')">Salvar</button><button onclick="closeS()">Cancelar</button>${x?`<button class="dg" onclick="delEnt('${id}')">Excluir</button>`:''}</div>`)}
+function saveEnt(id){const ml=+f_ml(),d=document.getElementById('f-d').value,t=document.getElementById('f-t').value;
+if(!d||!t||!(ml>=20&&ml<=3000))return err('Informe quantidade (20 a 3.000 ml), data e horário válidos.');
+const ts=new Date(d+'T'+t).getTime();if(ts>Date.now()+6e4)return err('O horário não pode estar no futuro.');
+const o={ctx:document.getElementById('f-c').value,note:document.getElementById('f-n').value.trim()};
+if(id){const x=S.e.find(y=>y.id===id);Object.assign(x,o,{ml:Math.round(ml),ts,d});if(d<today()&&!S.snap[d])S.snap[d]=S.cfg.goal;save();closeS();R();toast('Registro atualizado.')}
+else{closeS();if(add(ml,{...o,ts}))toast('Água registrada.')}}
+const f_ml=()=>document.getElementById('f-ml').value,err=m=>{document.getElementById('f-e').textContent=m};
+function delEnt(id){if(!confirm('Excluir este registro?'))return;S.e=S.e.filter(x=>x.id!==id);save();closeS();R();toast('Registro excluído.')}
+/* ---- CALENDAR ---- */
+function cal(){const y=cm.getFullYear(),m=cm.getMonth(),n=new Date(y,m+1,0).getDate(),f=cm.getDay();let ok=0,ms=0,no=0,cells='';
+for(let i=0;i<f;i++)cells+='<span></span>';
+for(let i=1;i<=n;i++){const k=y+'-'+p2(m+1)+'-'+p2(i),s=st(k),fu=k>today();if(s==='ok')ok++;else if(s==='miss')ms++;else if(!fu&&s==='none')no++;
+cells+=`<button class="${s==='ok'?'ok':s==='miss'?'miss':''} ${k===today()?'td':''} ${fu?'fu':''}" onclick="day('${k}')" aria-label="${fd(k)}: ${s==='ok'?'meta atingida':s==='miss'?'meta não atingida':'sem registros'}">${i}<span class="em">${s==='ok'?'✓':s==='miss'?'✕':''}</span></button>`}
+return `<h2 style="margin-top:6px">Calendário</h2><div class="card"><div class="row sp"><button onclick="mv(-1)" aria-label="Mês anterior">‹</button><b>${cm.toLocaleDateString('pt-BR',{month:'long',year:'numeric'})}</b><button onclick="mv(1)" aria-label="Próximo mês">›</button></div>
+<div class="cal" style="margin-top:10px">${['D','S','T','Q','Q','S','S'].map(x=>`<small>${x}</small>`).join('')}${cells}</div>
+<div class="lg" style="margin-top:12px"><span><i style="background:var(--bl)"></i>Azul: meta atingida</span><span><i style="background:var(--rd)"></i>Vermelho: meta não atingida</span><span><i style="background:#fff"></i>Branco: sem registros</span></div></div>
+<div class="card"><b>Resumo do mês</b><p class="mu" style="margin:4px 0 0">${ok} dias de meta · ${ms} dias sem meta · ${no} dias sem dados. O dia atual só entra como “não atingido” depois de terminar.</p></div>${S.e.length?'':'<div class="emp">Seu histórico começa com o primeiro registro.</div>'}`}
+const mv=n=>{cm.setMonth(cm.getMonth()+n);R()};
+function day(k){const t=tot(k),g=tgt(k),es=S.e.filter(x=>x.d===k).sort((a,b)=>a.ts-b.ts),r=S.r[k],s=st(k);
+sheet(`<h3>${fd(k)}</h3><p>${fm(t)} de ${fm(g)} — ${Math.round(t/g*100)}% — ${es.length} registro(s)</p><p class="mu">${s==='ok'?'✓ Meta atingida.':s==='miss'?'✕ Meta não atingida.':s==='now'?'Dia em andamento.':'Sem registros.'} Reflexão: ${r&&r.done?'concluída':'pendente'}.</p>
+<div class="tl">${es.map(x=>`<div><span>${hm(x.ts)} — ${x.ml} ml${x.ctx?' — '+esc(x.ctx):''}${x.note?'<br><span class="mu">'+esc(x.note)+'</span>':''}</span><button onclick="ent('${x.id}')">✎</button></div>`).join('')}</div>
+${r&&r.done?`<p class="mu">Dificuldade: ${esc(r.diff||'—')} · Clima: ${esc(r.wx||'—')} · Obstáculo: ${esc(r.obs||'—')}${r.note?'<br>Nota: '+esc(r.note):''}</p>`:''}
+<div class="row"><button class="pr" onclick="ent(null,'${k}')">Adicionar água</button><button onclick="refl('${k}')">${r&&r.done?'Editar':'Fazer'} reflexão</button><button onclick="closeS()">Fechar</button></div>`)}
+/* ---- REFLECTION ---- */
+const Q=[['goal','Você conseguiu bater sua meta de água hoje?',['Sim, com facilidade','Sim, mas foi difícil','Quase consegui','Não consegui']],['diff','Como foi beber água hoje?',['Muito fácil','Fácil','Normal','Difícil','Muito difícil']],['wx','Como estava o clima hoje?',['Muito calor','Calor','Temperatura agradável','Frio','Muito frio','Não sei dizer']],['env','Em quais lugares você mais bebeu água?',['Em casa','Na escola','Na academia','No trabalho','Na rua','Outros'],1],['per','Em qual período você mais bebeu água?',['Ao acordar','Manhã','Tarde','Noite','Atividade física','Distribuído no dia']],['obs','O que mais dificultou sua hidratação?',['Esqueci de beber','Estava ocupado','Escola sem facilidade','Sem sede','Estava frio','Fora de casa','Sem água por perto','Sem dificuldade','Outro motivo']],['av','Você tinha água disponível quando precisava?',['Sempre','Na maioria das vezes','Às vezes','Raramente']]];
+let RF={},RD='';
+function refl(d,keep){RD=d;if(!keep){RF={...(S.r[d]||{})};if(!RF.goal&&cnt(d)){const q=tot(d)/tgt(d);RF.goal=q>=1?'Sim, com facilidade':q>=.8?'Quase consegui':'Não consegui'}}
+sheet(`<h3>Reflexão — ${fd(d)}</h3><p class="mu">Responda o que quiser. Nada é obrigatório.</p>${Q.map(([k,t,o,m])=>`<label>${t}</label>${o.map((v,i)=>`<button class="ch ${m?(RF[k]||[]).includes(v):RF[k]===v?'on':''}" onclick="tg('${k}',${i},${m?1:0})">${v}</button>`.replace('class="ch true','class="ch on').replace('class="ch false','class="ch')).join('')}`).join('')}
+<label>Observações (opcional)</label><textarea id="r-n" rows="2">${esc(RF.note||'')}</textarea><div class="row" style="margin-top:12px"><button class="pr" onclick="saveR()">Salvar e finalizar</button><button onclick="closeS()">Adiar</button></div>`)}
+function tg(k,i,m){const q=Q.find(x=>x[0]===k),v=q[2][i];RF.note=document.getElementById('r-n').value;if(m){const a=RF[k]||[];RF[k]=a.includes(v)?a.filter(x=>x!==v):[...a,v]}else RF[k]=RF[k]===v?'':v;refl(RD,1)}
+function saveR(){RF.note=document.getElementById('r-n').value.trim();S.r[RD]={...RF,done:true,upd:Date.now()};save();closeS();R();toast('Reflexão salva.')}
+/* ---- STATS ---- */
+let rg=7;
+function stats(){const days=[];let n=rg,x=new Date();if(rg===0){n=x.getDate()}for(let i=n-1;i>=0;i--){const y=new Date();y.setDate(y.getDate()-i);days.push(ymd(y))}
+const rec=days.filter(k=>cnt(k)),ok=rec.filter(k=>st(k)==='ok').length,ms=rec.filter(k=>st(k)==='miss').length,fin=ok+ms;
+const sel=`<select onchange="rg=+this.value;R()" aria-label="Período">${[[7,'Últimos 7 dias'],[30,'Últimos 30 dias'],[90,'Últimos 90 dias'],[0,'Este mês']].map(a=>`<option value="${a[0]}" ${rg===a[0]?'selected':''}>${a[1]}</option>`).join('')}</select>`;
+if(rec.length<2)return `<h2 style="margin-top:6px">Análises</h2>${sel}<div class="card emp" style="margin-top:12px">Registre sua água por alguns dias para descobrir seus padrões.<br><button class="pr" style="margin-top:10px" onclick="ent()">Registrar água</button></div>`;
+const mx=Math.max(...days.map(tot),...days.map(tgt),1),W=340,bw=W/days.length;
+const bars=days.map((k,i)=>{const v=tot(k),h=v/mx*130,s=st(k);return `<rect data-d="${k}" onclick="day('${k}')" x="${i*bw+1}" y="${150-h}" width="${Math.max(bw-2,2)}" height="${v?h:3}" rx="2" fill="${!v?'#8B93A7':s==='ok'?'#1677FF':s==='miss'?'#FF3B4D':'#42C8FF'}" opacity="${v?1:.35}"><title>${fd(k)}: ${fm(v)}</title></rect>`}).join('');
+const gy=150-S.cfg.goal/mx*130,avg=rec.reduce((a,k)=>a+tot(k),0)/rec.length;
+const P=[['Madrugada (0–5h)',0,5],['Manhã (6–11h)',6,11],['Tarde (12–17h)',12,17],['Início da noite (18–21h)',18,21],['Noite (22–23h)',22,23]],inR=S.e.filter(e=>days.includes(e.d));
+const pv=P.map(([l,a,b])=>{const es=inR.filter(e=>{const h=new Date(e.ts).getHours();return h>=a&&h<=b});return[l,es.reduce((s,e)=>s+e.ml,0),es.length]}),pm=Math.max(...pv.map(a=>a[1]),1);
+const cx=CT.map(c=>{const ds=[...new Set(inR.filter(e=>e.ctx===c).map(e=>e.d))];return[c,ds.length,ds.length?inR.filter(e=>e.ctx===c).reduce((s,e)=>s+e.ml,0)/ds.length:0,ds.filter(k=>st(k)==='ok').length]}).filter(a=>a[1]);
+const ob={};days.forEach(k=>{const r=S.r[k];if(r&&r.obs&&r.obs!=='Sem dificuldade'){ob[r.obs]=ob[r.obs]||[0,0];ob[r.obs][0]++;if(st(k)==='miss')ob[r.obs][1]++}});const ol=Object.entries(ob).sort((a,b)=>b[1][0]-a[1][0]);
+const top=[...pv].sort((a,b)=>b[1]-a[1])[0],ins=[];if(rec.length>=3&&top[1])ins.push(`Você registrou mais água no período “${top[0]}” (${top[2]} registros em ${rec.length} dias com dados).`);if(ol[0])ins.push(`Seu principal obstáculo registrado foi “${ol[0][0]}” (${ol[0][1][0]} ${ol[0][1][0]>1?'dias':'dia'}).`);
+return `<h2 style="margin-top:6px">Análises</h2>${sel}
+${ins.length?`<div class="card" style="margin-top:12px;border-color:var(--cy)"><b>Insights</b>${ins.map(i=>`<p style="margin:6px 0 0">${i}</p>`).join('')}<p class="mu" style="margin:6px 0 0">Associações a partir dos seus registros, sem relação de causa.</p></div>`:''}
+<div class="card" style="margin-top:12px"><b>Consumo diário</b><div class="sc"><svg viewBox="0 0 ${W} 160" width="100%" role="img" aria-label="Consumo diário"><line x1="0" x2="${W}" y1="${gy}" y2="${gy}" stroke="#42C8FF" stroke-dasharray="4 3"/>${bars}</svg></div><p class="mu" style="margin:0">Azul: meta atingida · Vermelho: não atingida · Cinza: sem dados · Linha: meta atual (${fm(S.cfg.goal)}). Toque numa barra para ver o dia.</p></div>
+<div class="card"><b>Taxa de metas: ${fin?Math.round(ok/fin*100)+'%':'—'}</b><p class="mu" style="margin:4px 0 0">${ok} atingidas ÷ (${ok} atingidas + ${ms} não atingidas) = dias concluídos com registro. Sem dados: ${days.length-rec.length} dias (fora do cálculo). Média diária registrada: ${fm(avg)}.</p></div>
+<div class="card"><b>Água por período do dia</b>${pv.map(([l,v,c])=>`<div style="margin-top:8px"><div class="row sp mu"><span>${l}</span><span>${fm(v)} · ${c}x</span></div><div class="bar"><b style="width:${v/pm*100}%"></b></div></div>`).join('')}<p class="mu" style="margin:8px 0 0">Períodos sem registro não provam que você não bebeu água.</p></div>
+<div class="card"><b>Por ambiente</b>${cx.length?cx.map(a=>`<p style="margin:6px 0 0">${a[0]}: média ${fm(a[2])}/dia, meta em ${a[3]} de ${a[1]} dias <span class="mu">(n=${a[1]})</span></p>`).join(''):'<p class="mu">Escolha um contexto ao registrar para comparar ambientes.</p>'}</div>
+<div class="card"><b>Obstáculos relatados</b>${ol.length?ol.map(([k,v])=>`<p style="margin:6px 0 0">${esc(k)}: ${v[0]}x, ${v[1]} em dias de meta não atingida</p>`).join(''):'<p class="mu">Responda a reflexão diária para ver seus obstáculos.</p>'}</div>`}
+/* ---- HISTORY ---- */
+let hq='',hc='';
+function hist(){const es=S.e.filter(x=>(!hc||x.ctx===hc)&&(!hq||(x.note||'').toLowerCase().includes(hq.toLowerCase()))).sort((a,b)=>b.ts-a.ts),g={};es.forEach(x=>(g[x.d]=g[x.d]||[]).push(x));
+return `<h2 style="margin-top:6px">Histórico</h2><div class="row"><input id="hq" placeholder="Buscar nas observações" value="${esc(hq)}" oninput="hq=this.value;hl()" style="flex:2"><select onchange="hc=this.value;R()" style="flex:1"><option value="">Todos</option>${CT.map(c=>`<option ${hc===c?'selected':''}>${c}</option>`).join('')}</select></div><div id="hl">${hl(1)}</div>`}
+function hl(r){const es=S.e.filter(x=>(!hc||x.ctx===hc)&&(!hq||(x.note||'').toLowerCase().includes(hq.toLowerCase()))).sort((a,b)=>b.ts-a.ts),g={};es.forEach(x=>(g[x.d]=g[x.d]||[]).push(x));
+const h=Object.keys(g).map(d=>`<div class="card"><div class="row sp"><b onclick="day('${d}')" style="cursor:pointer">${fd(d)}</b><span class="mu">${fm(tot(d))}</span></div><div class="tl">${g[d].map(x=>`<div><span>${hm(x.ts)} — ${x.ml} ml${x.ctx?' — '+esc(x.ctx):''}${x.note?'<br><span class="mu">'+esc(x.note)+'</span>':''}</span><span><button onclick="ent('${x.id}')" aria-label="Editar">✎</button> <button class="dg" onclick="delEnt('${x.id}')" aria-label="Excluir">✕</button></span></div>`).join('')}</div></div>`).join('')||'<div class="emp">Nenhum registro encontrado.</div>';
+if(r)return h;document.getElementById('hl').innerHTML=h}
+/* ---- SETTINGS ---- */
+function set(){const c=S.cfg,perm=('Notification' in window)?Notification.permission:'indisponível',pl={granted:'concedida',denied:'negada',default:'não solicitada','indisponível':'indisponível neste navegador'}[perm];
+return `<h2 style="margin-top:6px">Ajustes</h2><div class="card"><b>Meta e atalhos</b><label>Meta diária (ml) — valor pessoal, não prescrição médica</label><input type="number" min="500" max="8000" value="${c.goal}" onchange="cf('goal',+this.value,500,8000)"><label>Atalhos de quantidade (ml, separados por vírgula)</label><input value="${c.quick.join(', ')}" onchange="qk(this.value)"><label>Contexto padrão</label><select onchange="S.cfg.ctx=this.value;save()"><option value="">Nenhum</option>${CT.map(x=>`<option ${c.ctx===x?'selected':''}>${x}</option>`).join('')}</select></div>
+<div class="card"><b>Rotina</b><div class="row"><div style="flex:1"><label>Acordar</label><input type="time" value="${c.wake}" onchange="S.cfg.wake=this.value;save()"></div><div style="flex:1"><label>Dormir</label><input type="time" value="${c.sleep}" onchange="S.cfg.sleep=this.value;save()"></div></div><label><input type="checkbox" style="width:auto;min-height:0" ${c.reflect?'checked':''} onchange="S.cfg.reflect=this.checked;save()"> Reflexão diária</label></div>
+<div class="card"><b>Lembretes</b><p class="mu">${LN()?'Os lembretes são agendados no Android e chegam com o app fechado. Se atrasarem, permita “Alarmes e lembretes” e desative a otimização de bateria para o HYDROCORE.':'Os lembretes só disparam enquanto o HYDROCORE estiver aberto no navegador. Permissão: '+pl+'.'}</p>
+<label><input type="checkbox" style="width:auto;min-height:0" ${c.notif?'checked':''} onchange="toggleN(this)"> Ativar lembretes (usam seus horários de acordar e dormir como janela)</label>
+<label>Intervalo (minutos)</label><input type="number" min="15" max="480" value="${c.every}" onchange="cf('every',+this.value,15,480)"><label>Tom das mensagens</label><select onchange="setTone(+this.value)">${TN.map((t,i)=>`<option value="${i}" ${c.tone===i?'selected':''}>${t}</option>`).join('')}</select>
+<p class="mu">Prévia: “${MSG[c.tone][0]}”</p><label><input type="checkbox" style="width:auto;min-height:0" ${c.stop?'checked':''} onchange="S.cfg.stop=this.checked;save()"> Parar lembretes após atingir a meta</label><button style="margin-top:8px" onclick="notify(MSG[S.cfg.tone][1])">Enviar teste</button></div>
+<div class="card"><b>Aparência</b><div class="row" style="margin-top:8px"><button class="${c.theme==='dark'?'pr':''}" onclick="S.cfg.theme='dark';save();R()">Escuro</button><button class="${c.theme==='light'?'pr':''}" onclick="S.cfg.theme='light';save();R()">Claro</button><button class="${c.rm?'pr':''}" onclick="S.cfg.rm=!S.cfg.rm;save();R()">Reduzir movimento</button></div></div>
+<div class="card"><b>Dados e privacidade</b><p class="mu">Tudo fica salvo apenas neste dispositivo (armazenamento local). Nada é enviado a servidores.</p><div class="row"><button onclick="csv()">Exportar CSV</button><button onclick="onb()">Refazer configuração</button><button class="dg" onclick="wipe()">Apagar tudo</button></div></div>`}
+function cf(k,v,a,b){if(!(v>=a&&v<=b))return toast(`Use um valor entre ${a} e ${b}.`),R();S.cfg[k]=v;save();R();toast('Ajuste salvo.')}
+function qk(s){const a=[...new Set(s.split(',').map(x=>parseInt(x)).filter(x=>x>=20&&x<=3000))].slice(0,5);if(!a.length)return toast('Informe valores entre 20 e 3.000.');S.cfg.quick=a;save();R()}
+function csv(){const l=['data,hora,ml,contexto,observacao',...S.e.sort((a,b)=>a.ts-b.ts).map(x=>[x.d,hm(x.ts),x.ml,x.ctx,'"'+(x.note||'').replace(/"/g,'""')+'"'].join(','))],a=document.createElement('a');a.href=URL.createObjectURL(new Blob([l.join('\n')],{type:'text/csv'}));a.download='hydrocore.csv';a.click();toast('CSV exportado.')}
+function wipe(){if(!confirm('Apagar TODOS os seus dados? Isso não pode ser desfeito.'))return;try{localStorage.removeItem(K)}catch(_){}S.e=[];S.r={};S.snap={};S.n={};S.cfg.on=false;save();R();toast('Dados apagados.')}
+/* ---- NOTIFICATIONS ---- */
+async function toggleN(el){if(!el.checked){S.cfg.notif=false;save();return}
+if(LN()){const r=await LN().requestPermissions();if(r.display!=='granted'){el.checked=false;S.cfg.notif=false;save();R();return toast('Permissão negada. Ative nas configurações do Android.')}S.cfg.notif=true;save();R();return toast('Lembretes agendados no Android.')}
+if(!('Notification' in window)){el.checked=false;return toast('Este navegador não oferece notificações.')}
+if(!confirm('Os lembretes ajudam você a registrar água ao longo do dia e só funcionam com o app aberto. Permitir notificações?')){el.checked=false;return}
+const r=await Notification.requestPermission();if(r!=='granted'){el.checked=false;S.cfg.notif=false;save();R();return toast('Permissão negada. Você pode ativá-la nos ajustes do navegador.')}S.cfg.notif=true;save();R()}
+async function notify(m){const L=LN();if(!L)return toast(m);try{const r=await L.requestPermissions();if(r.display!=='granted')return toast('Permissão de notificações negada.');await L.schedule({notifications:[{id:7777,title:'HYDROCORE',body:m,schedule:{at:new Date(Date.now()+2000)}}]});toast('Teste enviado. Chega em 2 segundos.')}catch(_){toast(m)}}
+function tick(){if(LN()){if(S.n.day!==today()){S.n.day=today();save();R()}return}const c=S.cfg,n=new Date(),hm2=p2(n.getHours())+':'+p2(n.getMinutes()),d=today();
+if(c.notif&&'Notification' in window&&Notification.permission==='granted'&&hm2>=c.wake&&hm2<c.sleep&&!(c.stop&&st(d)==='ok')){
+const es=S.e.filter(x=>x.d===d),la=Math.max(+S.n.last||0,es.length?es[es.length-1].ts:0);
+if(!es.length&&n.getHours()>=12&&S.n.mid!==d){S.n.mid=d;S.n.last=Date.now();save();notify(midMsg(c.tone))}
+else if(Date.now()-la>=c.every*6e4){S.n.last=Date.now();save();notify(pick(MSG[c.tone]))}}
+if(S.n.day!==d){S.n.day=d;save();R()}}
+/* ---- ONBOARDING ---- */
+function onb(){const c=S.cfg;sheet(`<h3>Bem-vindo ao HYDROCORE</h3><p class="mu">Sua hidratação. Seus dados. Sua evolução. As necessidades de água variam de pessoa para pessoa: escolha uma meta pessoal e ajuste quando quiser. Não é uma recomendação médica.</p>
+<label>Meta diária (ml)</label><input id="o-g" type="number" value="${c.goal}"><div class="row"><div style="flex:1"><label>Acordo às</label><input id="o-w" type="time" value="${c.wake}"></div><div style="flex:1"><label>Durmo às</label><input id="o-s" type="time" value="${c.sleep}"></div></div>
+<label>Tema</label><select id="o-t"><option value="dark" ${c.theme==='dark'?'selected':''}>Escuro</option><option value="light" ${c.theme==='light'?'selected':''}>Claro</option></select><p class="mu" id="f-e" style="color:var(--rd)"></p><button class="pr" style="margin-top:10px;width:100%" onclick="onbS()">Começar</button>`)}
+function onbS(){const g=+document.getElementById('o-g').value;if(!(g>=500&&g<=8000))return err('Use uma meta entre 500 e 8.000 ml.');Object.assign(S.cfg,{goal:g,wake:document.getElementById('o-w').value||'07:00',sleep:document.getElementById('o-s').value||'23:00',theme:document.getElementById('o-t').value,on:true});save();closeS();R()}
+const LN=()=>window.Capacitor&&Capacitor.Plugins&&Capacitor.Plugins.LocalNotifications;let sT;
+const raw=()=>{try{localStorage.setItem(K,JSON.stringify(S))}catch(_){}};
+async function sched(){const L=LN();if(!L)return;try{const p=await L.getPending();if(p.notifications.length)await L.cancel({notifications:p.notifications.map(n=>({id:n.id}))});
+const c=S.cfg;if(!c.notif)return;const now=Date.now(),[wh,wm]=c.wake.split(':').map(Number),[sh,sm]=c.sleep.split(':').map(Number),out=[];let ch=0;
+for(let o=0;o<3;o++){const b=new Date();b.setDate(b.getDate()+o);const Y=b.getFullYear(),M=b.getMonth(),D=b.getDate(),d=ymd(b);if(o===0&&c.stop&&st(d)==='ok')continue;
+const end=new Date(Y,M,D,sh,sm).getTime();let i=0;
+for(let t=new Date(Y,M,D,wh,wm).getTime();t<end;t+=c.every*6e4,i++)if(t>now+3e4)out.push({id:o*1000+i+1,title:'HYDROCORE',body:pick(MSG[c.tone]),schedule:{at:new Date(t),allowWhileIdle:true}});
+if(o===0&&!cnt(d)){const m=new Date(Y,M,D,12,0).getTime();let at=0;if(m>now)at=m;else if(S.n.mid!==d&&now<end)at=now+6e4;
+if(at){if(S.n.mid!==d){S.n.mid=d;ch=1}out.push({id:9000,title:'HYDROCORE',body:midMsg(c.tone),schedule:{at:new Date(at),allowWhileIdle:true}})}}}
+if(ch)raw();if(out.length)await L.schedule({notifications:out})}catch(e){}}
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)sched()});sched();
+R();if(!S.cfg.on)onb();setInterval(tick,3e4);document.addEventListener('visibilitychange',()=>{if(!document.hidden){tick();R()}});
+</script></body></html>

@@ -1,0 +1,17 @@
+HYDROCORE para Android (Capacitor)
+
+OPCAO A - sem instalar nada (recomendada)
+1. Crie uma conta e um repositorio vazio em github.com.
+2. Envie TODO o conteudo desta pasta (inclusive a pasta .github) para o repositorio.
+3. Na aba Actions, abra "Gerar APK" e aguarde ~5 min.
+4. Baixe o artefato "hydrocore-apk", descompacte e instale o app-debug.apk no celular
+   (permita "instalar apps desconhecidos" quando o Android pedir).
+
+OPCAO B - no computador (Node 20 + Android Studio)
+  npm install
+  npx cap add android
+  npx cap sync android
+  npx cap open android      (Build > Build APK)
+
+No celular: ao ativar os lembretes, permita notificacoes. Se atrasarem, ative
+"Alarmes e lembretes" e tire o app da otimizacao de bateria.
